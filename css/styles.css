@@ -1,0 +1,77 @@
+body {
+    background-color: #000000;
+}
+
+form {
+    text-align:center;
+}
+
+.container, .slip, .loading {
+    position:absolute;
+    left:0; right:0;
+    top:0; bottom:0;
+    margin:auto;
+
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}
+
+.container {
+	width: 600px;
+    height: 600px;
+}
+
+.slip {
+    background-image: url('images/slip.jpg');
+    background-size: 100% 100%;
+    width: 1000px;
+    height: 500px;
+}
+
+p, h1 {
+	font-size: 1.25em;
+	text-align: center;
+    color: white;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	height: 10em;
+	width: 10em;
+	border:2px solid white;
+	border-radius: 50%;
+}
+
+#cookie {
+	width: 100px;
+	height: 100px;
+}
+
+#message {
+    text-align: center;
+    color: black;
+    line-height: 300px;
+}
+
+
+
+.console {
+	position: absolute; 
+	bottom: 0;
+	border:1px solid red;
+    background:white;
+    width:50%;
+    height:100px;
+    display:box;
+    box-orient:horizontal;
+    box-pack:center;
+    box-align:center;
+    overflow-y: scroll;
+}
