@@ -4,9 +4,7 @@
 
 	session_start();
 	 
-	//$id = $_SESSION['steamId'];
-	$id = '76561198008597560';
-
+	$id = $_SESSION['steamId'];
 
 	$link =file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='.$apikey.'&steamids='.$id.'&format=json'); 
 	$json_decoded=json_decode($link, true);
