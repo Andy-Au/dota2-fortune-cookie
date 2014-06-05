@@ -19,7 +19,8 @@
 	<title>DotA 2 Fortune Cookie</title>
 	<link rel='stylesheet' type='text/css' href='css/styles.css'>
 
-	<script type='text/javascript' src='http://code.jquery.com/jquery-1.8.0.min.js'></script>
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
 	<script type='text/javascript'>var STEAM_ID = '<?= $id ?>';</script>
 	<script type='text/javascript' src='js/fortunecookie.js'></script>
 </head>

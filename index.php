@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html ng-app='loginApp'>
 
 <head>
     <title>DotA 2 Fortune Cookie</title>
     <link rel='stylesheet' type='text/css' href='css/styles.css'>
 
-    <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.0.min.js'></script>
-    <script type='text/javascript' src='js/login.js'></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src='js/loginApp.js'></script>
+    <script src='js/loginDirectives.js'></script>
 </head>
 
-<body>
+<body ng-controller='LoginController'>
 
-    <h1>What does a hero truly need?</h1>
-    <h1>A fortune cookie.</h1>
+    <h1> {{ indexMessage1 }}</h1>
+    <h1> {{ indexMessage2 }}</h1>
+    <div>
+        <login-picture></login-picture>
+    </div>
     <?php 
     	include 'apikey.php';
     	include 'openId.php';
@@ -64,6 +69,5 @@
         echo $e->getMessage();
     }
     ?>
-
 </body>
 </html>
