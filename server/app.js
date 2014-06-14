@@ -1,8 +1,10 @@
 var express = require('express');
 var logfmt = require('logfmt');
 var request = require('request');
+var cors = require('cors');
 var app = express();
 
+app.use(cors());
 app.use(logfmt.requestLogger());
 
 app.get('/:id', function(req, res) {

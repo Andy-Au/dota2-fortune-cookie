@@ -6,7 +6,7 @@ form {
     text-align:center;
 }
 
-.container, .slip, .loading {
+.container, .slip {
     position:absolute;
     left:0; right:0;
     top:0; bottom:0;
@@ -57,21 +57,47 @@ img {
 #message {
     text-align: center;
     color: black;
-    line-height: 300px;
+    margin-top: 250px;
 }
 
-
-
-.console {
-	position: absolute; 
-	bottom: 0;
-	border:1px solid red;
-    background:white;
-    width:50%;
-    height:100px;
-    display:box;
-    box-orient:horizontal;
-    box-pack:center;
-    box-align:center;
-    overflow-y: scroll;
+.container.ng-hide-add {
+    display: block !important;
+    opacity: 1;
+    transition: opacity 1s;
 }
+
+.container.ng-hide-add.ng-hide-add-active {
+    opacity: 0;
+}
+
+.container.ng-hide-remove {
+    display: block !important;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.container.ng-hide-remove.ng-hide-remove-active {
+    opacity: 1;
+}
+
+/*.container.ng-leave {
+    -webkit-transition: 1s linear all;
+    transition: 1s linear all;
+    opacity: 1;
+}
+
+.container.ng-leave-active {
+    opacity: 0;
+}
+
+.slip.ng-enter {
+    -webkit-transition: 1s linear all;
+    transition: 1s linear all;
+    opacity: 0;
+}
+
+.slip.ng-enter-active {
+    opacity: 1;
+
+    use with ng-if='cookieClicked'
+}*/

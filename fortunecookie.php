@@ -6,44 +6,43 @@
 	 
 	$id = $_SESSION['steamId'];
 
-	$link =file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='.$apikey.'&steamids='.$id.'&format=json'); 
-	$json_decoded=json_decode($link, true);
+	//$link =file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='.$apikey.'&steamids='.$id.'&format=json'); 
+	//$json_decoded=json_decode($link, true);
 
-	$player = $json_decoded['response']['players'][0];
+	//$player = $json_decoded['response']['players'][0];
 ?>
 
 <!DOCTYPE html>
-<html>
+<html ng-app='fortuneApp'>
 
 <head>
 	<title>DotA 2 Fortune Cookie</title>
+
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
 	<link rel='stylesheet' type='text/css' href='css/styles.css'>
 
-	<script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-	<script type='text/javascript'>var STEAM_ID = '<?= $id ?>';</script>
-	<script type='text/javascript' src='js/fortunecookie.js'></script>
+	<script src='bower_components/jquery/dist/jquery.js'></script>
+    <script src='bower_components/angular/angular.js'></script>
+    <script src='bower_components/angular-animate/angular-animate.js'></script>
+    <script src='bower_components/angular-resource/angular-resource.js'></script>
+    <script src='js/fortuneApp.js'></script>
+    <script src='js/fortuneDirectives.js'></script>
 </head>
 
-<body>
-	<div class='container'>
-		<p id='1'>HELLO! <? echo $player['personaname']; ?> ! </p>
-		<img id='avatar' src='<? echo $player['avatarfull']; ?>'</p>
-		<p id='2'>Your fortune is right here... </p>
-		<img id='cookie' src='css/images/fortunecookie.jpg'</img>
+<body ng-controller='FortuneController' ng-init="userInit('<?php echo $_SESSION['steamId'] ?>')">
+	<div class='container' my-show='cookieClicked' after-hide='afterHide()'>
+		<p>HELLO! {{ result.response.players[0].personaname }} ! </p>
 		
-		<p id='3'>Click to open it... </p>
+		<p>Your fortune is right here... </p>
+		<img src='css/images/fortunecookie.jpg' ng-click='getFortune()'</img>
+		
+		<p>Click to open it... </p>
 	</div>
 	
-	<div class='slip'>
-		<p id='message'></p>
+	<div class='slip' ng-hide='!containerHidden'>
+		<p id='message'>{{ message }}</p>
 	</div>
-
-	<div class='loading'>
-		<p>Opening your cookie..</p>
-	</div>
-
-	<div class='console' />
 
 </body>
 </html>
