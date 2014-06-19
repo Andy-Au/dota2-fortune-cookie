@@ -20,15 +20,16 @@ angular.module('fortuneApp', [
 
 	$scope.userInit = function(id) {
 		$scope.id = id;
-		$scope.service = $resource('http://dota2fortunecookie.herokuapp.com');
+		$scope.service = $resource('http://dota2fortunecookie.herokuapp.com/name=' + id);
 		//$scope.service = $resource('http://localhost:5000/name=' + id);
 		$scope.result = $scope.service.get();
 	};	
 
 	$scope.getFortune = function() {
 		$scope.cookieClicked = true;
-		$scope.mservice = $resource('http://dota2fortunecookie.herokuapp.com/');
-		$scope.message = $scope.mservice.get();
+		//$scope.service = $resource('http://dota2fortunecookie.herokuapp.com/getfortune=' + $scope.id);
+		$scope.service = $resource('http://localhost:5000/getfortune=' + $scope.id);
+		$scope.message = $scope.service.get();
 	};
 
 	$scope.afterHide = function() {

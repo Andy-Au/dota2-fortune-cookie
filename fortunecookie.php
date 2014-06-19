@@ -41,7 +41,7 @@
 	</div>
 	
 	<div class='slip' ng-hide='!containerHidden'>
-		<p id='message'>{{ message }}</p>
+		<p id='message'>{{ message.message }}</p>
 	</div>
 
 </body>

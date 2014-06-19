@@ -5,20 +5,43 @@ var apikey = require('./apikey');
 var checkLastHits = function(body, playerId, TheCallback) {
 	var object = body.result;
 	var steamId32 = convertToSteamId32(playerId);
+
 	var totalLastHits = 0;
+	var matches = 0;
+
+	console.log('steam id in 32 bits => ' + steamId32);
 
 
 	async.each(object.matches, function(match, callback) {
 		getMatchDetails(match.match_id, function(details) {
 			
-			//TODO : find an alternative for grep, or just implement one yourself.
-			//var player = $.grep(details.result.players, function(e) { return e.account_id == steamId32 });
+			var player = details.result.players.filter(function(e) {
+				return e.account_id === steamId32;
+			});
 
-			totalLastHits = totalLastHits + details.result.players[0].last_hits;
+			console.log('player = ' + player[0].account_id + 'lasthit = ' + player[0].last_hits);
+
+			totalLastHits = totalLastHits + player[0].last_hits;
+			matches = matches + 1;
+
 			callback();
+
 		});
 	}, function(err) {
-		TheCallback(JSON.stringify(totalLastHits));
+		console.log('total matches = ' + matches);
+		console.log('total lastHits = ' + totalLastHits);
+
+		var averageLastHits = totalLastHits / matches;
+
+		console.log('average lasthits = ' + averageLastHits);
+
+		if (averageLastHits > 200) {
+			TheCallback(JSON.stringify({ message: "You are a last hitting God!" }));
+		} else if (averageLastHits < 200 && averageLastHits > 100) {
+			TheCallback(JSON.stringify({ message: "You are average at last hitting." }));
+		} else {
+			TheCallback(JSON.stringify({ message: "You are TRASH" }));
+		}
 	});
 };
 
