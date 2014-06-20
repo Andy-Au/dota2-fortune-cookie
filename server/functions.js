@@ -36,11 +36,11 @@ var checkLastHits = function(body, playerId, TheCallback) {
 		console.log('average lasthits = ' + averageLastHits);
 
 		if (averageLastHits > 200) {
-			TheCallback(JSON.stringify({ message: "You are a last hitting God!" }));
+			TheCallback(JSON.stringify("You are a last hitting God!"));
 		} else if (averageLastHits < 200 && averageLastHits > 100) {
-			TheCallback(JSON.stringify({ message: "You are average at last hitting." }));
+			TheCallback(JSON.stringify("You are average at last hitting. JK TRASHHHHHHH."));
 		} else {
-			TheCallback(JSON.stringify({ message: "You are TRASH" }));
+			TheCallback(JSON.stringify("You are TRASH"));
 		}
 	});
 };
