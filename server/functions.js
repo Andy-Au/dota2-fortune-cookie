@@ -1,10 +1,21 @@
+/*
+This is where all the data analysis logic's at.
+
+it makes use of the steam api functions (getMatchDetails etc)
+
+Each of these takes in 3 parameters: 1). body - the JSON object returned from getMatchHistory
+									 2). playerId - steamId from getPlayerSummary (must change to 32bit version)
+									 3). TheCallback - the callback function that will be called at the end after 
+									  	 all the async methods are completed and returns the message back to app.js
+*/
+
 var request = require('request');
 var async = require('async');
 var apikey = require('./apikey');
+var steam = require('./steamFunctions');
 
 var checkLastHits = function(body, playerId, TheCallback) {
-	var object = body.result;
-	var steamId32 = convertToSteamId32(playerId);
+	var steamId32 = steam.convertToSteamId32(playerId);
 
 	var totalLastHits = 0;
 	var matches = 0;
@@ -12,8 +23,8 @@ var checkLastHits = function(body, playerId, TheCallback) {
 	console.log('steam id in 32 bits => ' + steamId32);
 
 
-	async.each(object.matches, function(match, callback) {
-		getMatchDetails(match.match_id, function(details) {
+	async.each(body.matches, function(match, callback) {
+		steam.getMatchDetails(match.match_id, function(details) {
 			
 			var player = details.result.players.filter(function(e) {
 				return e.account_id === steamId32;
@@ -45,36 +56,45 @@ var checkLastHits = function(body, playerId, TheCallback) {
 	});
 };
 
-var getPlayerSummary = function(id, callback) {
-	var url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + apikey.apikey 
-		+ '&steamids=' + id + '&format=json';
-	request.get({url : url, json : true}, function(error, response, body) {
-		callback(body);
+var checkKills = function(body, playerId, TheCallback) {
+	var steamId32 = steam.convertToSteamId32(playerId);
+
+	var totalKills = 0;
+	var matches = 0;
+
+	async.each(body.matches, function(match, callback) {
+		steam.getMatchDetails(match.match_id, function(details) {
+			var player = details.result.players.filter(function(e) {
+				return e.account_id === steamId32;
+			});
+
+			console.log('player = ' + player[0].account_id + 'kills = ' + player[0].kills);
+
+			totalKills = totalKills + player[0].kills;
+			matches = matches + 1;
+
+			callback();
+
+		});
+	}, function(err) {
+		console.log('total matches = ' + matches);
+		console.log('total kills = ' + totalKills);
+
+		var averageKills = totalKills / matches;
+
+		console.log('average kills = ' + averageKills);
+
+		if (averageKills > 10) {
+			TheCallback(JSON.stringify('You are a hero slayer!'));
+		} else if (averageKills < 10 && averageKills > 4) {
+			TheCallback(JSON.stringify('You are not that great at ksing eh?'));
+		} else {
+			TheCallback(JSON.string('You are allergic to kills eh?'));
+		}
 	});
 };
 
-//GETS THREE MATCHES FOR NOW. 
-//change matches_requested to desired amount of matches
-var getMatchHistory = function(id, callback) { 
-	var url = 'http://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/v1/?key=' + apikey.apikey 
-		+ '&account_id=' + id + '&format=json&matches_requested=3';
-	request.get({url : url, json : true}, function(error, response, body) {
-		callback(body);
-	});
-};
 
-function getMatchDetails (id, callback) {
-	var url = 'http://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/v001/?key=' + apikey.apikey
-		+ '&match_id=' + id + '&format=json';
-	request.get({url : url, json : true}, function(error, response, body) {
-		callback(body);
-	});
-}
-
-function convertToSteamId32(id) {
-	return id.substr(3) - 61197960265728;
-}
 
 module.exports.checkLastHits = checkLastHits;
-module.exports.getPlayerSummary = getPlayerSummary;
-module.exports.getMatchHistory = getMatchHistory;
+module.exports.checkKills = checkKills;
