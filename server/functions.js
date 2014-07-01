@@ -47,11 +47,17 @@ var checkLastHits = function(body, playerId, TheCallback) {
 		console.log('average lasthits = ' + averageLastHits);
 
 		if (averageLastHits > 200) {
-			TheCallback(JSON.stringify("You are a last hitting God!"));
+			TheCallback(JSON.stringify({
+				message: 'You are a last hitting God!'
+			}));
 		} else if (averageLastHits < 200 && averageLastHits > 100) {
-			TheCallback(JSON.stringify("You are average at last hitting. JK TRASHHHHHHH."));
+			TheCallback(JSON.stringify({
+				message: 'You are average at last hitting. JK TRASHHHHHHH.'
+			}));
 		} else {
-			TheCallback(JSON.stringify("You are TRASH"));
+			TheCallback(JSON.stringify({
+				message: 'You are TRASH'
+			}));
 		}
 	});
 };
@@ -85,11 +91,17 @@ var checkKills = function(body, playerId, TheCallback) {
 		console.log('average kills = ' + averageKills);
 
 		if (averageKills > 10) {
-			TheCallback(JSON.stringify('You are a hero slayer!'));
+			TheCallback(JSON.stringify({
+				message: 'You are a hero slayer!'
+			}));
 		} else if (averageKills < 10 && averageKills > 4) {
-			TheCallback(JSON.stringify('You are not that great at ksing eh?'));
+			TheCallback(JSON.stringify({
+				message: 'You are not that great at ksing eh?'}
+			));
 		} else {
-			TheCallback(JSON.string('You are allergic to kills eh?'));
+			TheCallback(JSON.stringify({
+				message: 'You are allergic to kills eh?'
+			}));
 		}
 	});
 };

@@ -1,6 +1,6 @@
-angular.module('fortuneDirectives', ['ngAnimate'])
+var app = angular.module('fortuneDirectives', ['ngAnimate']);
 
-.directive('myShow', function ($animate) {
+app.directive('myShow', function ($animate) {
 	return {
 		scope: {
 			'myShow': '=',
@@ -15,4 +15,20 @@ angular.module('fortuneDirectives', ['ngAnimate'])
 			});
 		}
   	}
+});
+
+app.directive('myHide', function ($animate) {
+	return {
+		scope: {
+			'myHide': '=',
+			'afterShow': '&'
+		}, 
+		link: function(scope, element) {
+			scope.$watch('myHide', function(newValue, oldValue) {
+				if (newValue) {
+					console.log('showing cookie!');
+					$animate.removeClass(element, 'ng-hide', scope.afterShow);				}
+			});
+		}
+	}
 });

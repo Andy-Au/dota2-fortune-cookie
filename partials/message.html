@@ -1,0 +1,14 @@
+<div>
+	<div class='container' my-show='cookieClicked' after-hide='afterHide()'>
+		<p>HELLO! {{ result.response.players[0].personaname }} ! </p>
+		
+		<p>Your fortune is right here... </p>
+		<img src='css/images/fortunecookie.jpg' ng-click='getFortune()'</img>
+		
+		<p>Click to open it... </p>
+	</div>
+
+	<div class='slip' my-hide='containerHidden' after-show='afterShow()' ng-hide='true'>
+		<p id='message'>{{ message.message }}</p>
+	</div>
+</div>

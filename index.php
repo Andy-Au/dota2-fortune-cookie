@@ -55,8 +55,7 @@
                 $ptn = "/^http:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/";
                 preg_match($ptn, $id, $matches);
                 $steamId = $matches[1];
-                $_SESSION['steamId'] = $steamId;
-                header('LOCATION: http://localhost/dota2/fortunecookie.php');
+                header('LOCATION: http://localhost/dota2/fortunecookie.php#/message/' . $steamId);
             } 
             else 
             {
