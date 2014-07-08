@@ -1,7 +1,9 @@
 <div>
 	<div class='container' my-show='cookieClicked' after-hide='afterHide()'>
 		<p>HELLO! {{ result.response.players[0].personaname }} ! </p>
-		
+
+		<img ng-src=' {{ result.response.players[0].avatarfull }}'></img>
+
 		<p>Your fortune is right here... </p>
 		<img src='css/images/fortunecookie.jpg' ng-click='getFortune()'</img>
 		

@@ -16,10 +16,14 @@
     <script src='js/fortuneApp.js'></script>
     <script src='js/fortuneDirectives.js'></script>
     <script src='js/dota2Controllers.js'></script>
+    <script src='js/dota2Services.js'></script>
 </head>
 <body>
 
-	<div ng-view></div>
+	<div ng-controller='AppCtrl'>
+        <img src='css/images/loading.gif' ng-show='loading'></img>
+        <ng-view></ng-view>
+    </div>
 
 </body>
 </html>

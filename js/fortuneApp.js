@@ -5,6 +5,7 @@ var app = angular.module('fortuneApp', [
 	'ngAnimate',
 	'ngRoute',
 	'dota2Controllers',
+    'dota2Services',
 	'fortuneDirectives'
 ])
 
@@ -16,7 +17,16 @@ var app = angular.module('fortuneApp', [
         	when('/message/:steamId', {
         		templateUrl: 'partials/message.html',
         		controller: 'FortuneController',
-        		//resolve : FortuneController.loadData
+        		resolve: {
+                    summary: function($route, playerSummaryService) {
+                        return playerSummaryService.get(
+                            {
+                                steamId: $route.current.params.steamId
+                            }).$promise.then(function(data) {
+                                return data;
+                            });
+                    }
+                }
         	}).
         	otherwise({
         		redirectTo: '/message'
