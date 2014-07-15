@@ -5,12 +5,16 @@
 		<img ng-src=' {{ result.response.players[0].avatarfull }}'></img>
 
 		<p>Your fortune is right here... </p>
-		<img src='css/images/fortunecookie.jpg' ng-click='getFortune()'</img>
+		<img id='picture' src='css/images/fortunecookie.jpg' ng-click='getFortune()'</img>
 		
 		<p>Click to open it... </p>
 	</div>
 
-	<div class='slip' my-hide='containerHidden' after-show='afterShow()' ng-hide='true'>
-		<p id='message'>{{ message.message }}</p>
+	<div class='message' my-hide='containerHidden' after-show='afterShow()' ng-hide='true'>
+		<div class='slip'>
+			<p id='message'>{{ message.message }}</p>
+		</div>
+
+		<button ng-click='getDetails()'>Elaborate!</button>
 	</div>
 </div>

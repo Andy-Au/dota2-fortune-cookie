@@ -6,7 +6,8 @@ dota2Controllers.controller('FortuneController', [
 	'$scope', 
 	'$resource', 
 	'$routeParams',
-	'summary', function($scope, $resource, $routeParams, summary) {
+	'$location',
+	'summary', function($scope, $resource, $routeParams, $location, summary) {
 
 	$scope.cookieClicked = false;
 	$scope.containerHidden = false;
@@ -18,8 +19,8 @@ dota2Controllers.controller('FortuneController', [
 		$scope.cookieClicked = true;
 		
 
-		//$scope.service = $resource('http://dota2fortunecookie.herokuapp.com/getfortune=:steamId',
-		$scope.service = $resource('http://localhost:5000/getfortune=:steamId',
+		$scope.service = $resource('http://dota2fortunecookie.herokuapp.com/getfortune=:steamId',
+		//$scope.service = $resource('http://localhost:5000/getfortune=:steamId',
 			{
 				steamId: '@steamId'
 			});
@@ -39,6 +40,10 @@ dota2Controllers.controller('FortuneController', [
 
 	$scope.afterShow = function() {
 		console.log('cookie has been shown~!');
+	}
+
+	$scope.getDetails = function() {
+		$location.path('/details');
 	}
 }]);
 

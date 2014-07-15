@@ -5,6 +5,7 @@ var app = angular.module('fortuneApp', [
 	'ngAnimate',
 	'ngRoute',
 	'dota2Controllers',
+    'detailControllers',
     'dota2Services',
 	'fortuneDirectives'
 ])
@@ -28,6 +29,10 @@ var app = angular.module('fortuneApp', [
                     }
                 }
         	}).
+            when('/details', {
+                templateUrl: 'partials/details.html',
+                controller: 'DetailController',
+            }).
         	otherwise({
         		redirectTo: '/message'
         	});

@@ -16,6 +16,7 @@
     <script src='js/fortuneApp.js'></script>
     <script src='js/fortuneDirectives.js'></script>
     <script src='js/dota2Controllers.js'></script>
+    <script src='js/detailsControllers.js'></script>
     <script src='js/dota2Services.js'></script>
 </head>
 <body>
