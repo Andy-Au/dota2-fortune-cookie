@@ -1,4 +1,4 @@
-<div>
+6+<div>
 	<div class='container' my-show='cookieClicked' after-hide='afterHide()'>
 		<p>HELLO! {{ result.response.players[0].personaname }} ! </p>
 
@@ -10,7 +10,7 @@
 		<p>Click to open it... </p>
 	</div>
 
-	<div class='message' my-hide='containerHidden' after-show='afterShow()' ng-hide='true'>
+	<div class='message' my-hide='containerHidden' after-show='afterShow()' ng-show='containerHidden'>
 		<div class='slip'>
 			<p id='message'>{{ message.message }}</p>
 		</div>

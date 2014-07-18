@@ -19,7 +19,7 @@ var app = angular.module('fortuneApp', [
         		templateUrl: 'partials/message.html',
         		controller: 'FortuneController',
         		resolve: {
-                    summary: function($route, playerSummaryService) {
+                    PlayerSummary: function($route, playerSummaryService) {
                         return playerSummaryService.get(
                             {
                                 steamId: $route.current.params.steamId
@@ -29,9 +29,19 @@ var app = angular.module('fortuneApp', [
                     }
                 }
         	}).
-            when('/details', {
+            when('/details/:steamId', {
                 templateUrl: 'partials/details.html',
                 controller: 'DetailController',
+                resolve: {
+                    TestMessage: function($route, getFortuneService) {
+                        return getFortuneService.get(
+                            {
+                                steamId: $route.current.params.steamId
+                            }).$promise.then(function(data) {
+                                return data;
+                            });
+                    }
+                }
             }).
         	otherwise({
         		redirectTo: '/message'

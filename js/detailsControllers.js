@@ -5,8 +5,10 @@ var app = angular.module('detailControllers', []);
 app.controller('DetailController', [
 	'$scope', 
 	'$resource', 
-	'$routeParams', function($scope, $resource, $routeParams) {
+	'$routeParams',
+	'TestMessage', function($scope, $resource, $routeParams, TestMessage) {
 
 	$scope.testmessage = 'TEST ANDY WAS HERE';
+	$scope.message = TestMessage.message;
 
 }]);

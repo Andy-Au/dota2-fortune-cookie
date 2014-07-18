@@ -27,7 +27,11 @@ app.directive('myHide', function ($animate) {
 			scope.$watch('myHide', function(newValue, oldValue) {
 				if (newValue) {
 					console.log('showing cookie!');
-					$animate.removeClass(element, 'ng-hide', scope.afterShow);				}
+					$animate.removeClass(element, 'ng-hide', scope.afterShow);				
+				} else if (!newValue) {
+					console.log('hiding cookie!');
+					$animate.addClass(element, 'ng-hide');
+				}
 			});
 		}
 	}

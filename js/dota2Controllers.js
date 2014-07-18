@@ -7,28 +7,19 @@ dota2Controllers.controller('FortuneController', [
 	'$resource', 
 	'$routeParams',
 	'$location',
-	'summary', function($scope, $resource, $routeParams, $location, summary) {
+	'PlayerSummary',
+	'getFortuneService', function(
+		$scope, $resource, $routeParams, 
+		$location, PlayerSummary, getFortuneService) {
 
 	$scope.cookieClicked = false;
 	$scope.containerHidden = false;
 
 	$scope.id = $routeParams.steamId;
-	$scope.result = summary;
+	$scope.result = PlayerSummary;
 
 	$scope.getFortune = function() {
 		$scope.cookieClicked = true;
-		
-
-		$scope.service = $resource('http://dota2fortunecookie.herokuapp.com/getfortune=:steamId',
-		//$scope.service = $resource('http://localhost:5000/getfortune=:steamId',
-			{
-				steamId: '@steamId'
-			});
-		$scope.message = $scope.service.get({ steamId: $scope.id }, function() {
-			console.log('fortune call done!');
-			$scope.containerHidden = true;
-			$scope.$parent.loading = false;
-		});
 	};
 
 	$scope.afterHide = function() {
@@ -36,6 +27,12 @@ dota2Controllers.controller('FortuneController', [
 			$scope.$parent.loading = true;
 		});
 		console.log('containerHidden = true!');
+
+		$scope.message = getFortuneService.get({ steamId: $scope.id }, function() {
+			console.log('fortune call done!');
+			$scope.$parent.loading = false;
+			$scope.containerHidden = true;
+		});
 	}
 
 	$scope.afterShow = function() {
@@ -43,7 +40,8 @@ dota2Controllers.controller('FortuneController', [
 	}
 
 	$scope.getDetails = function() {
-		$location.path('/details');
+		$scope.containerHidden = false;
+		$location.path('/details/' + $scope.id);
 	}
 }]);
 
@@ -54,6 +52,7 @@ dota2Controllers.controller("AppCtrl", function ($scope, $route, $location, $roo
 	$scope.loading = true;
 
   	$rootScope.$on("$routeChangeStart", function (event, current, previous, rejection) {
+  		$scope.loading = true;
     	console.log('route changing! ' + $scope.loading);
   	});      
   	$rootScope.$on("$routeChangeSuccess", function (event, current, previous, rejection) {
