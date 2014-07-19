@@ -2,7 +2,7 @@
 
 var app = angular.module('detailControllers', []);
 
-app.controller('DetailController', [
+app.controller('DetailCtrl', [
 	'$scope', 
 	'$resource', 
 	'$routeParams',

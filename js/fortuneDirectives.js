@@ -1,13 +1,13 @@
 var app = angular.module('fortuneDirectives', ['ngAnimate']);
 
-app.directive('myShow', function ($animate) {
+app.directive('dotaShow', function($animate) {
 	return {
 		scope: {
-			'myShow': '=',
+			'dotaShow': '=',
 			'afterHide': '&'
 		},
 		link: function(scope, element) {
-			scope.$watch('myShow', function(newValue, oldValue) {
+			scope.$watch('dotaShow', function(newValue, oldValue) {
 				if (newValue) {
 					console.log('cookie has been clicked!');
 					$animate.addClass(element, 'ng-hide', scope.afterHide);
@@ -17,14 +17,14 @@ app.directive('myShow', function ($animate) {
   	}
 });
 
-app.directive('myHide', function ($animate) {
+app.directive('dotaHide', function($animate) {
 	return {
 		scope: {
-			'myHide': '=',
+			'dotaHide': '=',
 			'afterShow': '&'
 		}, 
 		link: function(scope, element) {
-			scope.$watch('myHide', function(newValue, oldValue) {
+			scope.$watch('dotaHide', function(newValue, oldValue) {
 				if (newValue) {
 					console.log('showing cookie!');
 					$animate.removeClass(element, 'ng-hide', scope.afterShow);				

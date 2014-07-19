@@ -4,7 +4,7 @@ var app = angular.module('fortuneApp', [
 	'ngResource',
 	'ngAnimate',
 	'ngRoute',
-	'dota2Controllers',
+	'fortuneControllers',
     'detailControllers',
     'dota2Services',
 	'fortuneDirectives'
@@ -17,7 +17,7 @@ var app = angular.module('fortuneApp', [
         $routeProvider.
         	when('/message/:steamId', {
         		templateUrl: 'partials/message.html',
-        		controller: 'FortuneController',
+        		controller: 'FortuneCtrl',
         		resolve: {
                     PlayerSummary: function($route, playerSummaryService) {
                         return playerSummaryService.get(
@@ -31,7 +31,7 @@ var app = angular.module('fortuneApp', [
         	}).
             when('/details/:steamId', {
                 templateUrl: 'partials/details.html',
-                controller: 'DetailController',
+                controller: 'DetailCtrl',
                 resolve: {
                     TestMessage: function($route, getFortuneService) {
                         return getFortuneService.get(
@@ -43,8 +43,11 @@ var app = angular.module('fortuneApp', [
                     }
                 }
             }).
+            when('/oops', {
+                templateUrl : 'partials/oops.html'
+            }).
         	otherwise({
-        		redirectTo: '/message'
+        		redirectTo: '/oops'
         	});
     }
 ]);

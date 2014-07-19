@@ -15,7 +15,7 @@
     <script src='bower_components/angular-route/angular-route.js'></script>
     <script src='js/fortuneApp.js'></script>
     <script src='js/fortuneDirectives.js'></script>
-    <script src='js/dota2Controllers.js'></script>
+    <script src='js/fortuneControllers.js'></script>
     <script src='js/detailsControllers.js'></script>
     <script src='js/dota2Services.js'></script>
 </head>
