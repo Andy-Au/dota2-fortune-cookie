@@ -1,0 +1,124 @@
+body {
+    background-color: #000000;
+}
+
+form {
+    text-align:center;
+}
+
+.container, .slip {
+    position:absolute;
+    left:0; right:0;
+    top:0; bottom:0;
+    margin:auto;
+
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}
+
+.container {
+	width: 600px;
+    height: 600px;
+}
+
+.slip {
+    display: block;
+    background-image: url('images/slip.jpg');
+    background-size: 100% 100%;
+    width:  500px;
+    height: 300px;
+}
+
+.message {
+    display: block;
+    height: 400px;
+    min-width: 200px; max-width: 400px;
+    margin: auto; 
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;    
+}
+
+p, h1 {
+	font-size: 1.25em;
+	text-align: center;
+    color: white;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+#picture {
+	height: 10em;
+	width: 10em;
+	border:2px solid white;
+	border-radius: 50%;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button {
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+}
+
+#cookie {
+	width: 100px;
+	height: 100px;
+}
+
+#message {
+    display: block;
+    text-align: center;
+    color: black;
+    margin-top: 250px;
+}
+
+.container.ng-hide-add {
+    display: block !important;
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+.container.ng-hide-add.ng-hide-add-active {
+    opacity: 0;
+}
+
+.container.ng-hide-remove {
+    display: block !important;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.container.ng-hide-remove.ng-hide-remove-active {
+    opacity: 1;
+}
+
+/*.container.ng-leave {
+    -webkit-transition: 1s linear all;
+    transition: 1s linear all;
+    opacity: 1;
+}
+
+.container.ng-leave-active {
+    opacity: 0;
+}
+
+.slip.ng-enter {
+    -webkit-transition: 1s linear all;
+    transition: 1s linear all;
+    opacity: 0;
+}
+
+.slip.ng-enter-active {
+    opacity: 1;
+
+    use with ng-if='cookieClicked'
+}*/

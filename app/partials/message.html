@@ -1,0 +1,20 @@
+<div>
+	<div class='container' dota-show='cookieClicked' after-hide='afterHide()'>
+		<p>HELLO! {{ result.response.players[0].personaname }} ! </p>
+
+		<img ng-src='{{ result.response.players[0].avatarfull }}'></img>
+
+		<p>Your fortune is right here... </p>
+		<img id='picture' src='css/images/fortunecookie.jpg' ng-click='getFortune()'</img>
+		
+		<p>Click to open it... </p>
+	</div>
+
+	<div class='message' dota-hide='containerHidden' after-show='afterShow()' ng-hide='true'>
+		<div class='slip'>
+			<p id='message'>{{ message.message }}</p>
+		</div>
+
+		<button ng-click='getDetails()'>Elaborate!</button>
+	</div>
+</div>
