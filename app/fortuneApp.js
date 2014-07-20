@@ -29,14 +29,15 @@ var app = angular.module('fortuneApp', [
                     }
                 }
         	}).
-            when('/details/:steamId', {
+            when('/detail=:steamId/:fortuneId', {
                 templateUrl: 'partials/details.html',
                 controller: 'DetailCtrl',
                 resolve: {
-                    TestMessage: function($route, getFortuneService) {
-                        return getFortuneService.get(
+                    TestMessage: function($route, getDetailService) {
+                        return getDetailService.get(
                             {
-                                steamId: $route.current.params.steamId
+                                steamId: $route.current.params.steamId,
+                                fortuneId: $route.current.params.fortuneId
                             }).$promise.then(function(data) {
                                 return data;
                             });

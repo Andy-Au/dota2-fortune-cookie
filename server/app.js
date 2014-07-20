@@ -25,6 +25,12 @@ app.get('/name=:id', function(req, res) {
 	});
 });
 
+app.get('/details=:id', function(req, res) {
+	steam.getMatchHistory(req.params.id, function(body) {
+		
+	});
+});
+
 var port = Number(process.env.PORT || 5000);
 app.listen(port, function() {
   	console.log('Listening on ' + port);

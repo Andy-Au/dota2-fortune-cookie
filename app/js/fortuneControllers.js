@@ -28,7 +28,7 @@ app.controller('FortuneCtrl', [
 		});
 		console.log('containerHidden = true!');
 
-		$scope.message = getFortuneService.get({ steamId: $scope.id }, function() {
+		$scope.fortune = getFortuneService.get({ steamId: $scope.id }, function() {
 			console.log('fortune call done!');
 			$scope.$parent.loading = false;
 			$scope.containerHidden = true;
@@ -41,7 +41,7 @@ app.controller('FortuneCtrl', [
 
 	$scope.getDetails = function() {
 		$scope.containerHidden = false;
-		$location.path('/details/' + $scope.id);
+		$location.path('/detail=' + $scope.id + '/' + $scope.fortune.id);
 	}
 }]);
 

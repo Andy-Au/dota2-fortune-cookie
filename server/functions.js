@@ -48,15 +48,18 @@ var checkLastHits = function(body, playerId, TheCallback) {
 
 		if (averageLastHits > 200) {
 			TheCallback(JSON.stringify({
-				message: 'You are a last hitting God!'
+				message: 'You are a last hitting God!',
+				id: 1
 			}));
 		} else if (averageLastHits < 200 && averageLastHits > 100) {
 			TheCallback(JSON.stringify({
-				message: 'You are average at last hitting. JK TRASHHHHHHH.'
+				message: 'You are average at last hitting. JK TRASHHHHHHH.',
+				id: 1
 			}));
 		} else {
 			TheCallback(JSON.stringify({
-				message: 'You are TRASH'
+				message: 'You are TRASH',
+				id: 1
 			}));
 		}
 	});
@@ -92,21 +95,37 @@ var checkKills = function(body, playerId, TheCallback) {
 
 		if (averageKills > 10) {
 			TheCallback(JSON.stringify({
-				message: 'You are a hero slayer!'
+				message: 'You are a hero slayer!',
+				id: 2
 			}));
 		} else if (averageKills < 10 && averageKills > 4) {
 			TheCallback(JSON.stringify({
-				message: 'You are not that great at ksing eh?'}
-			));
+				message: 'You are not that great at ksing eh?',
+				id: 2
+			}));
 		} else {
 			TheCallback(JSON.stringify({
-				message: 'You are allergic to kills eh?'
+				message: 'You are allergic to kills eh?',
+				id: 2
 			}));
 		}
 	});
 };
 
+var getKillsDetail = function(body, playerId, TheCallback) {
+	TheCallback(JSON.stringify({
+		message: 'You have been the crappiest kser of all time. This is a paragraph to explain why you suck so much'
+	}));
+};
 
+var getLastHitsDetail = function(body, playerId, TheCallback) {
+	TheCallback(JSON.stringify({
+		message: 'You can not last hit for your life. This a paragraph to explain how bad you are at this game.'
+	}));
+};
 
 module.exports.checkLastHits = checkLastHits;
 module.exports.checkKills = checkKills;
+
+module.exports.getKillsDetail = getKillsDetail;
+module.exports.getLastHitsDetail = getLastHitsDetail;
