@@ -11,6 +11,7 @@ Each of these takes in 3 parameters: 1). body - the JSON object returned from ge
 
 var request = require('request');
 var async = require('async');
+var mongoose = require('mongoose');
 var apikey = require('./apikey');
 var steam = require('./steamFunctions');
 
@@ -46,22 +47,20 @@ var checkLastHits = function(body, playerId, TheCallback) {
 
 		console.log('average lasthits = ' + averageLastHits);
 
+		var level = 0;
 		if (averageLastHits > 200) {
-			TheCallback(JSON.stringify({
-				message: 'You are a last hitting God!',
-				id: 1
-			}));
+			level = 2;
 		} else if (averageLastHits < 200 && averageLastHits > 100) {
-			TheCallback(JSON.stringify({
-				message: 'You are average at last hitting. JK TRASHHHHHHH.',
-				id: 1
-			}));
-		} else {
-			TheCallback(JSON.stringify({
-				message: 'You are TRASH',
-				id: 1
-			}));
+			level = 1;
 		}
+
+		getMessage(mongoose.model('kills'), level, function(result) {
+			TheCallback(JSON.stringify({
+				message: result.message,
+				id: 1,
+				level: level
+			}));
+		});
 	});
 };
 
@@ -93,22 +92,20 @@ var checkKills = function(body, playerId, TheCallback) {
 
 		console.log('average kills = ' + averageKills);
 
+		var level = 0;
 		if (averageKills > 10) {
-			TheCallback(JSON.stringify({
-				message: 'You are a hero slayer!',
-				id: 2
-			}));
+			level = 2;
 		} else if (averageKills < 10 && averageKills > 4) {
-			TheCallback(JSON.stringify({
-				message: 'You are not that great at ksing eh?',
-				id: 2
-			}));
-		} else {
-			TheCallback(JSON.stringify({
-				message: 'You are allergic to kills eh?',
-				id: 2
-			}));
+			level = 1;
 		}
+
+		getMessage(mongoose.model('lasthits'), level, function(result) {
+			TheCallback(JSON.stringify({
+				message: result.message,
+				id: 2,
+				level: level
+			}));
+		});
 	});
 };
 
@@ -123,6 +120,20 @@ var getLastHitsDetail = function(body, playerId, TheCallback) {
 		message: 'You can not last hit for your life. This a paragraph to explain how bad you are at this game.'
 	}));
 };
+
+var getMessage = function(model, level, callback) {
+	var rand = Math.random();
+	model.findOne( { level: level, random : { $gte: rand } }, function(err, result) {
+		if (result == null) {
+			model.findOne( { level: level, random: { $lte: rand } }, function(err, result) {
+				callback(result);
+			});
+		} else {
+			callback(result);
+		}
+	});
+};
+
 
 module.exports.checkLastHits = checkLastHits;
 module.exports.checkKills = checkKills;
