@@ -6,9 +6,10 @@ app.controller('DetailCtrl', [
 	'$scope', 
 	'$resource', 
 	'$routeParams',
-	'TestMessage', function($scope, $resource, $routeParams, TestMessage) {
+	'DetailMessage',
+	'PlayerSummary', function($scope, $resource, $routeParams, DetailMessage, PlayerSummary) {
 
-	$scope.testmessage = 'TEST ANDY WAS HERE';
-	$scope.message = TestMessage.message;
+	$scope.summary = PlayerSummary;
+	$scope.message = DetailMessage.message;
 
 }]);

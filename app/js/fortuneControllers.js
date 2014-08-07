@@ -41,7 +41,7 @@ app.controller('FortuneCtrl', [
 
 	$scope.getDetails = function() {
 		$scope.containerHidden = false;
-		$location.path('/detail=' + $scope.id + '/' + $scope.fortune.id);
+		$location.path('/detail=' + $scope.id + '/' + $scope.fortune.id + '/' + $scope.fortune.level);
 	}
 }]);
 

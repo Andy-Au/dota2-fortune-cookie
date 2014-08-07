@@ -32,32 +32,41 @@ fs.readdirSync(__dirname + '/model').forEach(function(filename) {
 
 
 //routes
-app.get('/getfortune=:id', function(req, res) {
-	steam.getMatchHistory(req.params.id, function(body) {
-		functions.checkLastHits(body.result, req.params.id, function(response) {
-			console.log('done! =>' + response);
-			res.send(response);		
-		});
-	});
-});
-
 app.get('/name=:id', function(req, res) {
 	steam.getPlayerSummary(req.params.id, function(result) {
 		res.send(result);
 	});
 });
 
-app.get('/detail=:id/:fortuneId', function(req, res) {
+app.get('/getfortune=:id', function(req, res) {
+	steam.getMatchHistory(req.params.id, function(body) {
+		functions.checkKills(body.result, req.params.id, function(response) {
+			var obj = JSON.parse(response);
+			
+			getMessage(mongoose.model('kills'), obj.level, function(result) {
+				res.send(JSON.stringify({
+					message: result.message,
+					id: 2,
+					level: obj.level
+				}));
+			});
+		});
+	});
+});
+
+
+
+app.get('/detail=:id/:fortuneId/:level', function(req, res) {
 	console.log('getting details');
 	steam.getMatchHistory(req.params.id, function(body) {
 		if (req.params.fortuneId == 1) { //check lasthits
-			console.log('getKillsDetail');
-			functions.getKillsDetail(body.result, req.params.id, function(response) {
+			console.log('getLastHitsDetail');
+			functions.getLastHitsDetail(body.result, req.params.id, req.params.level, function(response) {
 				res.send(response);
 			});
 		} else if (req.params.fortuneId == 2) { //check kills
-			console.log('getLastHitsDetail');
-			functions.getLastHitsDetail(body.result, req.params.id, function(response) {
+			console.log('getKillsDetail');
+			functions.getKillsDetail(body.result, req.params.id, req.params.level, function(response) {
 				res.send(response);
 			});
 		} else {
@@ -72,3 +81,16 @@ var port = Number(process.env.PORT || 5000);
 app.listen(port, function() {
   	console.log('Listening on ' + port);
 });
+
+var getMessage = function(model, level, callback) {
+	var rand = Math.random();
+	model.findOne( { level: level, random : { $gte: rand } }, function(err, result) {
+		if (result == null) {
+			model.findOne( { level: level, random: { $lte: rand } }, function(err, result) {
+				callback(result);
+			});
+		} else {
+			callback(result);
+		}
+	});
+};

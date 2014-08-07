@@ -54,16 +54,18 @@ var checkLastHits = function(body, playerId, TheCallback) {
 			level = 1;
 		}
 
-		getMessage(mongoose.model('kills'), level, function(result) {
-			TheCallback(JSON.stringify({
-				message: result.message,
-				id: 1,
-				level: level
-			}));
-		});
+		TheCallback(JSON.stringify({
+			totalLastHits: totalLastHits,
+			averageLastHits: averageLastHits,
+			matches: matches,
+			id: 1,
+			level: level
+		}));
 	});
 };
 
+//Potentially make checkKills return a 'checkKillsResponse' object
+//make this more OOP
 var checkKills = function(body, playerId, TheCallback) {
 	var steamId32 = steam.convertToSteamId32(playerId);
 
@@ -92,32 +94,49 @@ var checkKills = function(body, playerId, TheCallback) {
 
 		console.log('average kills = ' + averageKills);
 
-		var level = 0;
+		var level = 1;
 		if (averageKills > 10) {
-			level = 2;
+			level = 3;
 		} else if (averageKills < 10 && averageKills > 4) {
-			level = 1;
+			level = 2;
 		}
 
-		getMessage(mongoose.model('lasthits'), level, function(result) {
-			TheCallback(JSON.stringify({
-				message: result.message,
-				id: 2,
-				level: level
-			}));
+		TheCallback(JSON.stringify({
+			totalKills: totalKills,
+			averageKills: averageKills,
+			matches: matches,
+			id: 2,
+			level: level
+		}));
+	});
+};
+
+var getKillsDetail = function(body, playerId, level, TheCallback) {
+	var message = '';
+
+	checkKills(body, playerId, function(result) {
+		
+		var obj = JSON.parse(result);
+		var totalKills = obj.totalKills;
+		var averageKills = obj.averageKills;
+		var matches = obj.matches;
+
+		//get generic messages
+		getMessage(mongoose.model('killdetails'), 0, function(genericResult) {
+			message = String.format(genericResult.message, averageKills, matches);
+			getMessage(mongoose.model('killdetails'), level, function(result) {
+				message = message + result.message;
+				TheCallback(JSON.stringify({
+					message: message,
+				}));
+			});
 		});
 	});
 };
 
-var getKillsDetail = function(body, playerId, TheCallback) {
+var getLastHitsDetail = function(body, playerId, level, TheCallback) {
 	TheCallback(JSON.stringify({
-		message: 'You have been the crappiest kser of all time. This is a paragraph to explain why you suck so much'
-	}));
-};
-
-var getLastHitsDetail = function(body, playerId, TheCallback) {
-	TheCallback(JSON.stringify({
-		message: 'You can not last hit for your life. This a paragraph to explain how bad you are at this game.'
+		message: 'test',
 	}));
 };
 
@@ -134,9 +153,22 @@ var getMessage = function(model, level, callback) {
 	});
 };
 
+if (!String.format) {
+  String.format = function(format) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    return format.replace(/{(\d+)}/g, function(match, number) { 
+      return typeof args[number] != 'undefined'
+        ? args[number] 
+        : match
+      ;
+    });
+  };
+}
 
 module.exports.checkLastHits = checkLastHits;
 module.exports.checkKills = checkKills;
 
 module.exports.getKillsDetail = getKillsDetail;
 module.exports.getLastHitsDetail = getLastHitsDetail;
+
+module.exports.getMessage = getMessage;

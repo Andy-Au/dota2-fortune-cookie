@@ -29,19 +29,29 @@ var app = angular.module('fortuneApp', [
                     }
                 }
         	}).
-            when('/detail=:steamId/:fortuneId', {
+            when('/detail=:steamId/:fortuneId/:level', {
                 templateUrl: 'partials/details.html',
                 controller: 'DetailCtrl',
                 resolve: {
-                    TestMessage: function($route, getDetailService) {
+                    DetailMessage: function($route, getDetailService) {
                         return getDetailService.get(
                             {
                                 steamId: $route.current.params.steamId,
-                                fortuneId: $route.current.params.fortuneId
+                                fortuneId: $route.current.params.fortuneId,
+                                level: $route.current.params.level,
+                            }).$promise.then(function(data) {
+                                return data;
+                            });
+                    },
+                    PlayerSummary: function($route, playerSummaryService) {
+                        return playerSummaryService.get(
+                            {
+                                steamId: $route.current.params.steamId,
                             }).$promise.then(function(data) {
                                 return data;
                             });
                     }
+
                 }
             }).
             when('/oops', {
