@@ -4,6 +4,7 @@ var app = angular.module('fortuneApp', [
 	'ngResource',
 	'ngAnimate',
 	'ngRoute',
+    'angles',
 	'fortuneControllers',
     'detailControllers',
     'dota2Services',
@@ -50,8 +51,12 @@ var app = angular.module('fortuneApp', [
                             }).$promise.then(function(data) {
                                 return data;
                             });
+                    },
+                    Heroes: function(getHeroesService) {
+                        return getHeroesService.query({}).$promise.then(function(data) {
+                            return data;
+                        });
                     }
-
                 }
             }).
             when('/oops', {

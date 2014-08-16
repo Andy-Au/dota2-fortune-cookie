@@ -41,13 +41,11 @@ app.get('/name=:id', function(req, res) {
 app.get('/getfortune=:id', function(req, res) {
 	steam.getMatchHistory(req.params.id, function(body) {
 		functions.checkKills(body.result, req.params.id, function(response) {
-			var obj = JSON.parse(response);
-			
-			getMessage(mongoose.model('kills'), obj.level, function(result) {
+			getMessage(mongoose.model('kills'), response.level, function(result) {
 				res.send(JSON.stringify({
 					message: result.message,
 					id: 2,
-					level: obj.level
+					level: response.level
 				}));
 			});
 		});
@@ -62,12 +60,19 @@ app.get('/detail=:id/:fortuneId/:level', function(req, res) {
 		if (req.params.fortuneId == 1) { //check lasthits
 			console.log('getLastHitsDetail');
 			functions.getLastHitsDetail(body.result, req.params.id, req.params.level, function(response) {
-				res.send(response);
+				res.send(JSON.stringify({
+					message: response.message,
+					data: response.data,
+				}));
 			});
 		} else if (req.params.fortuneId == 2) { //check kills
 			console.log('getKillsDetail');
 			functions.getKillsDetail(body.result, req.params.id, req.params.level, function(response) {
-				res.send(response);
+				console.log('data=>' + response.data);
+				res.send(JSON.stringify({
+					message: response.message,
+					data: response.data,
+				}));
 			});
 		} else {
 			res.send(JSON.stringify({

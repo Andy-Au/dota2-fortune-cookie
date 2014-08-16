@@ -69,6 +69,11 @@ button {
     bottom: 0;
 }
 
+#logo {
+    width:100px;
+    height:100px;
+}
+
 #cookie {
 	width: 100px;
 	height: 100px;
@@ -101,24 +106,15 @@ button {
     opacity: 1;
 }
 
-/*.container.ng-leave {
-    -webkit-transition: 1s linear all;
-    transition: 1s linear all;
-    opacity: 1;
+/* details page */
+#details-header {
+    height: 200px;
+    min-width:1500px; 
+    width: auto !important; 
+    width: 1500px; 
 }
 
-.container.ng-leave-active {
-    opacity: 0;
+#player-info {
+    font-size: 10px;
+    float: left;
 }
-
-.slip.ng-enter {
-    -webkit-transition: 1s linear all;
-    transition: 1s linear all;
-    opacity: 0;
-}
-
-.slip.ng-enter-active {
-    opacity: 1;
-
-    use with ng-if='cookieClicked'
-}*/

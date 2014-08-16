@@ -1,5 +1,20 @@
 <div>
-	<p> {{ summary.response.players[0].personaname }} </p>
-	<img ng-src='{{ summary.response.players[0].avatarmedium }}'></img>
+	<div id='details-header'>
+		<div id='player-info'>
+			<p> {{ summary.response.players[0].personaname }} </p>
+			<img ng-src='{{ summary.response.players[0].avatarmedium }}'></img>
+			<p>Last match: 10 hours ago
+			<p>Last login: January 24th, 2014</p>
+		</div>
+		<div>
+			<img id='logo' src='css/images/logo.png'></img>
+			<p>DOTA 2 FORTUNE COOKIE</p>
+		</div>
+	</div>
 	<p> {{ message }} </p>
+
+	<div style='background:white;'>
+		<canvas linechart data='KillsEachGameLineChart' options='myChartOptions' width=500 height=500></canvas>
+		<canvas barchart data='HeroesPlayedBarChart' options='myChartOptions' width 500 height=500></canvas>
+	</div>
 </div>

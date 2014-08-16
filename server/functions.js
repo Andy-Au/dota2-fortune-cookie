@@ -54,13 +54,13 @@ var checkLastHits = function(body, playerId, TheCallback) {
 			level = 1;
 		}
 
-		TheCallback(JSON.stringify({
+		TheCallback({
 			totalLastHits: totalLastHits,
 			averageLastHits: averageLastHits,
 			matches: matches,
 			id: 1,
 			level: level
-		}));
+		});
 	});
 };
 
@@ -71,9 +71,11 @@ var checkKills = function(body, playerId, TheCallback) {
 
 	var totalKills = 0;
 	var matches = 0;
+	var dataEachMatch = [];
 
 	async.each(body.matches, function(match, callback) {
 		steam.getMatchDetails(match.match_id, function(details) {
+			console.log(details);
 			var player = details.result.players.filter(function(e) {
 				return e.account_id === steamId32;
 			});
@@ -82,6 +84,11 @@ var checkKills = function(body, playerId, TheCallback) {
 
 			totalKills = totalKills + player[0].kills;
 			matches = matches + 1;
+
+			dataEachMatch.push({
+				heroId: player[0].hero_id,
+				kills: player[0].kills,
+			});
 
 			callback();
 
@@ -101,13 +108,14 @@ var checkKills = function(body, playerId, TheCallback) {
 			level = 2;
 		}
 
-		TheCallback(JSON.stringify({
+		TheCallback({
 			totalKills: totalKills,
 			averageKills: averageKills,
 			matches: matches,
+			data: dataEachMatch,
 			id: 2,
 			level: level
-		}));
+		});
 	});
 };
 
@@ -115,29 +123,30 @@ var getKillsDetail = function(body, playerId, level, TheCallback) {
 	var message = '';
 
 	checkKills(body, playerId, function(result) {
-		
-		var obj = JSON.parse(result);
-		var totalKills = obj.totalKills;
-		var averageKills = obj.averageKills;
-		var matches = obj.matches;
+	
+		var totalKills = result.totalKills;
+		var averageKills = result.averageKills;
+		var matches = result.matches;
+		var data = result.data;
 
 		//get generic messages
 		getMessage(mongoose.model('killdetails'), 0, function(genericResult) {
 			message = String.format(genericResult.message, averageKills, matches);
 			getMessage(mongoose.model('killdetails'), level, function(result) {
 				message = message + result.message;
-				TheCallback(JSON.stringify({
+				TheCallback({
 					message: message,
-				}));
+					data: data,
+				});
 			});
 		});
 	});
 };
 
 var getLastHitsDetail = function(body, playerId, level, TheCallback) {
-	TheCallback(JSON.stringify({
+	TheCallback({
 		message: 'test',
-	}));
+	});
 };
 
 var getMessage = function(model, level, callback) {

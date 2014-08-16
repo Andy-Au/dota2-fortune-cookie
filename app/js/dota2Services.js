@@ -27,3 +27,8 @@ app.factory('getDetailService', ['$resource', function($resource) {
 		level: '@level',
 	});
 }]);
+
+app.factory('getHeroesService', ['$resource', function($resource) {
+	return $resource('resources/heroes.json', {},
+		{'query': {method: 'GET', isArray: true}});
+}]);

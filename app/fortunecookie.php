@@ -18,6 +18,8 @@
     <script src='bower_components/angular-animate/angular-animate.js'></script>
     <script src='bower_components/angular-resource/angular-resource.js'></script>
     <script src='bower_components/angular-route/angular-route.js'></script>
+    <script src='bower_components/angles/angles.js'></script>
+    <script src='bower_components/chartjs/Chart.min.js'></script>
     <script src='fortuneApp.js'></script>
     <script src='js/fortuneDirectives.js'></script>
     <script src='js/fortuneControllers.js'></script>
